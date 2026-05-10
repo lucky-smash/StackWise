@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button"
+import AuditForm from "@/components/audit/AuditForm";
 
 export default function Home() {
   return (
@@ -19,7 +20,10 @@ export default function Home() {
         <Button size="lg">
           Start Free Audit
         </Button>
+
+        <AuditForm />
       </section>
+
     </main>
   )
 }

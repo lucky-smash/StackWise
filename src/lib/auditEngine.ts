@@ -5,8 +5,8 @@ export function runAudit(data: AuditInput): AuditResult {
     let recommendations: string[] = [];
     let waste = 0;
     let score = 100;
-    let chatbotTools = data.toolsUsed.filter((tool) => TOOL_PRICING[tool as keyof typeof TOOL_PRICING].category === "chatbot");
-    let codingTools = data.toolsUsed.filter((tool) => TOOL_PRICING[tool as keyof typeof TOOL_PRICING].category === "coding");
+    let chatbotTools = data.toolsUsed.filter((tool) => TOOL_PRICING[tool as keyof typeof TOOL_PRICING]?.category === "chatbot");
+    let codingTools = data.toolsUsed.filter((tool) => TOOL_PRICING[tool as keyof typeof TOOL_PRICING]?.category === "coding");
 
     if (chatbotTools.length > 1) {
         recommendations.push("You are using multiple chatbot tools. Consider consolidating to save costs.");
