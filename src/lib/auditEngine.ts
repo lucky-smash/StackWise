@@ -9,12 +9,12 @@ export function runAudit(data: AuditInput): AuditResult {
     let codingTools = data.toolsUsed.filter((tool) => TOOL_PRICING[tool as keyof typeof TOOL_PRICING]?.category === "coding");
 
     if (chatbotTools.length > 1) {
-        recommendations.push("You are using multiple chatbot tools. Consider consolidating to save costs.");
+        recommendations.push("Claude and ChatGPT overlap in functionality.Consider standardizing on one primary assistant.");
         score -= 10;
         waste += (chatbotTools.length - 1) * 20;
     }
     if (codingTools.length > 1) {
-        recommendations.push("You are using multiple coding tools. Consider consolidating to save costs.");
+        recommendations.push("Cursor and GitHub Copilot overlap in functionality.Consider standardizing on one primary assistant.");
         score -= 10;
         waste += (codingTools.length - 1) * 10;
     }

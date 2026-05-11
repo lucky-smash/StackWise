@@ -6,7 +6,10 @@ import { runAudit } from "@/lib/auditEngine";
 import AuditResults from "./AuditResults";
 
 
+import { useRouter } from "next/navigation";
+
 export default function AuditForm() {
+  const router = useRouter();
   const [formData, setFormData] = useState<AuditInput>({
     teamSize: 0,
     monthlySpend: 0,
@@ -14,13 +17,18 @@ export default function AuditForm() {
     apiUsage: "low",
   });
 
-  const [result, setResult] = useState<AuditResult | null>(null);
-
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    const auditResult = runAudit(formData);
-    setResult(auditResult);
-    console.log(auditResult);
+    
+    // Encode data into URL search params
+    const params = new URLSearchParams({
+      teamSize: formData.teamSize.toString(),
+      monthlySpend: formData.monthlySpend.toString(),
+      toolsUsed: formData.toolsUsed.join(","),
+      apiUsage: formData.apiUsage
+    });
+
+    router.push(`/results?${params.toString()}`);
   };
 
   return (
@@ -96,44 +104,6 @@ export default function AuditForm() {
           Calculate Savings
         </button>
       </form>
-
-      {/* {result && (
-        <div className="mt-6 border rounded-xl p-6 bg-card">
-          <h2 className="text-2xl font-bold mb-4">
-            Audit Results
-          </h2>
-
-          <div className="space-y-2">
-            <p>
-              Optimization Score: {result.optimizationScore}
-            </p>
-
-            <p>
-              Estimated Monthly Waste: $
-              {result.estimatedMonthlyWaste}
-            </p>
-
-            <p>
-              Estimated Annual Savings: $
-              {result.estimatedAnnualSavings}
-            </p>
-          </div>
-
-          <div className="mt-4">
-            <h3 className="font-semibold mb-2">
-              Recommendations
-            </h3>
-
-            <ul className="list-disc ml-5 space-y-1">
-              {result.recommendations.map((rec, index) => (
-                <li key={index}>{rec}</li>
-              ))}
-            </ul>
-          </div>
-        </div>
-      )} */}
-
-      {result && <AuditResults result={result} />}
 
     </div>
   );
