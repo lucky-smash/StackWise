@@ -75,7 +75,10 @@ This assignment work started earlier, but the development log was documented lat
 - Implemented POST `/api/leads` API endpoint
 - Successfully stored lead data into MongoDB Atlas using Postman
 - Tested backend API endpoints and request flow using Postman
-- Prioritized backend database architecture before Gemini integration to establish a stable API foundation
+- Built lead capture section on results page
+- Connected frontend lead form to backend API
+- Successfully stored lead data in MongoDB Atlas
+- Implemented end-to-end full-stack data flow
 
 **What I learned:**
 - How MongoDB Atlas cloud databases connect with Next.js applications

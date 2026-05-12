@@ -5,6 +5,7 @@ import { useSearchParams } from "next/navigation";
 import { runAudit } from "@/lib/auditEngine";
 import { AuditResult, AuditInput, ApiUsage } from "@/types/audit";
 import AuditResults from "@/components/audit/AuditResults";
+import LeadCaptureCard from "@/components/audit/LeadCaptureCard";
 import { Navbar } from "@/components/layout/Navbar";
 import { Loader2 } from "lucide-react";
 
@@ -13,11 +14,13 @@ function ResultsContent() {
   const [loading, setLoading] = useState(true);
   const [result, setResult] = useState<AuditResult | null>(null);
 
+  const teamSize = Number(searchParams.get("teamSize")) || 0;
+
   useEffect(() => {
     // Simulate analyzing state
     const timer = setTimeout(() => {
       const data: AuditInput = {
-        teamSize: Number(searchParams.get("teamSize")),
+        teamSize,
         monthlySpend: Number(searchParams.get("monthlySpend")),
         toolsUsed: searchParams.get("toolsUsed")?.split(",").filter(Boolean) || [],
         apiUsage: (searchParams.get("apiUsage") as ApiUsage) || "low",
@@ -29,7 +32,7 @@ function ResultsContent() {
     }, 1000);
 
     return () => clearTimeout(timer);
-  }, [searchParams]);
+  }, [searchParams, teamSize]);
 
   if (loading) {
     return (
@@ -42,8 +45,9 @@ function ResultsContent() {
   }
 
   return result ? (
-    <div className="animate-in fade-in slide-in-from-bottom-4 duration-700">
+    <div className="animate-in fade-in slide-in-from-bottom-4 duration-700 space-y-10">
       <AuditResults result={result} />
+      <LeadCaptureCard teamSize={teamSize} />
     </div>
   ) : null;
 }
