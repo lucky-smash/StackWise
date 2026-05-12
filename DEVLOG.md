@@ -100,3 +100,45 @@ This assignment work started earlier, but the development log was documented lat
 - Start Gemini API integration for AI-generated personalized summaries
 - Implement basic API rate limiting
 - Finalize remaining assignment polish and deployment improvements
+
+## Day 4 — 2026-05-13
+
+**Hours worked:** 2
+
+**What I did:**
+- Integrated Gemini AI API into the StackWise application
+- Built `/api/ai-summary` backend route for AI-generated optimization summaries
+- Created reusable `AiSummaryCard` component for displaying AI insights
+- Connected AI summary generation with the audit results flow
+- Added fallback handling for AI API failures
+- Improved end-to-end user experience from audit → recommendations → AI insights
+- Added and organized project documentation files:
+  - ARCHITECTURE.md
+  - GTM.md
+  - METRICS.md
+  - PRICING_DATA.md
+  - USER_INTERVIEWS.md
+  - PROMPTS.md
+  - REFLECTION.md
+  - TESTS.md
+- Deployed latest production build successfully on Vercel
+- Verified MongoDB Atlas + AI API integration in production
+
+**What I learned:**
+- How to integrate external AI APIs into a Next.js application
+- Structuring backend AI routes using App Router API handlers
+- Importance of fallback UI and graceful API failure handling
+- Better understanding of product-oriented engineering workflows
+- How deployment environments handle API keys and environment variables
+
+**Blockers / what I'm stuck on:**
+- Still exploring how to make AI summaries more context-aware and personalized
+- Need better prompt engineering for more actionable recommendations
+- Learning how to balance fast shipping with scalable architecture decisions
+
+**Plan for tomorrow:**
+- Improve AI-generated recommendations quality
+- Add loading and streaming states for AI responses
+- Refine UI polish and responsiveness
+- Add analytics/event tracking ideas
+- Continue improving product positioning and onboarding experience
