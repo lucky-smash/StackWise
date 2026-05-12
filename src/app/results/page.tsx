@@ -6,6 +6,7 @@ import { runAudit } from "@/lib/auditEngine";
 import { AuditResult, AuditInput, ApiUsage } from "@/types/audit";
 import AuditResults from "@/components/audit/AuditResults";
 import LeadCaptureCard from "@/components/audit/LeadCaptureCard";
+import AiSummaryCard from "@/components/audit/AiSummaryCard";
 import { Navbar } from "@/components/layout/Navbar";
 import { Loader2 } from "lucide-react";
 
@@ -15,6 +16,7 @@ function ResultsContent() {
   const [result, setResult] = useState<AuditResult | null>(null);
 
   const teamSize = Number(searchParams.get("teamSize")) || 0;
+  const toolsUsed = searchParams.get("toolsUsed")?.split(",").filter(Boolean) || [];
 
   useEffect(() => {
     // Simulate analyzing state
@@ -22,7 +24,7 @@ function ResultsContent() {
       const data: AuditInput = {
         teamSize,
         monthlySpend: Number(searchParams.get("monthlySpend")),
-        toolsUsed: searchParams.get("toolsUsed")?.split(",").filter(Boolean) || [],
+        toolsUsed: toolsUsed,
         apiUsage: (searchParams.get("apiUsage") as ApiUsage) || "low",
       };
 
@@ -47,6 +49,7 @@ function ResultsContent() {
   return result ? (
     <div className="animate-in fade-in slide-in-from-bottom-4 duration-700 space-y-10">
       <AuditResults result={result} />
+      <AiSummaryCard result={result} toolsUsed={toolsUsed} />
       <LeadCaptureCard teamSize={teamSize} />
     </div>
   ) : null;
